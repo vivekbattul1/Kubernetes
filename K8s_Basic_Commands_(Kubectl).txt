@@ -1,0 +1,19 @@
+Kubernetes Basic Commands (kubectl):
+=====================================
+
+----------------------------
+#kubectl run hello-minikube
+----------------------------
+kubectl run command is used to deploy an application on the cluster
+
+
+-------------------------
+#kubectl cluster-info
+-------------------------
+kubectl cluster-info command is used to view information about the cluster
+
+
+---------------------
+#kubectl get nodes
+---------------------
+kubectl get pod command is used to list all the nodes part of the cluster
