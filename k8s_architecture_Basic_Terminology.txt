@@ -43,9 +43,6 @@ ETCD service: ETCD is a distributed reliable key-value store used by kubernetes 
 Think of it this way, when you have multiple nodes and multiple masters in your cluster, etcd stores all that information on all the nodes in the cluster in a distributed manner. 
 ETCD is responsible for implementing locks within the cluster to ensure there are no conflicts between the Masters. 
 
-kubelet service: The scheduler is responsible for distributing work or containers across multiple nodes. 
-It looks for newly created containers and assigns them to Nodes.
-
 Container Runtime: The container runtime is the underlying software that is used to run containers. In our case it happens to be Docker. 
 
 Controllers: The controllers are the brain behind orchestration. 
@@ -55,6 +52,9 @@ The controllers makes decisions to bring up new containers in such cases.
 
 Schedulers: The scheduler is responsible for distributing work or containers across multiple nodes.  
 It looks for newly created containers and assigns them to Nodes
+
+Kubelet: kubelet is the agent that runs on each node in the cluster. 
+The agent is responsible for making sure that the containers are running on the nodes as expected.
 
 
 
