@@ -1,19 +1,37 @@
 Kubernetes Basic Commands (kubectl):
-=====================================
+====================================
 
-----------------------------
-#kubectl run hello-minikube
-----------------------------
-kubectl run command is used to deploy an application on the cluster
-
-
--------------------------
-#kubectl cluster-info
--------------------------
-kubectl cluster-info command is used to view information about the cluster
-
-
----------------------
+List all the nodes in the cluster
 #kubectl get nodes
----------------------
-kubectl get pod command is used to list all the nodes part of the cluster
+
+List all the nodes in the cluster with detailed information
+#kubectl get nodes -o wide
+
+List all the pods in all namespaces.
+#kubectl get pods --all-namespaces
+
+List all the namespaces in the cluster.
+#kubectl get namespaces
+
+Check to see if there are any pods running in the default namespace.
+Use the following command to list the pods in the default namespace:
+#kubectl get pods
+
+Find the IP address of the API server running on the master node.
+Use the following command to find the IP address of the API server:
+#kubectl get pods --all-namespaces -o wide
+
+See if there are any deployments in this cluster.
+Use the following command to check for any deployments in the cluster:
+#kubectl get deployments
+
+Find the label applied to the etcd pod on the master node.
+Use the following command to view the label on the etcd pod:
+#kubectl get pods --all-namespaces --show-labels -o wide
+
+View the pods in the default namespace with a custom view:
+#kubectl get pods -o custom-columns=POD:metadata.name,NODE:spec.nodeName --sort-by spec.nodeName -n kube-system
+
+View the kube-scheduler YAML:
+#kubectl get endpoints kube-scheduler -n kube-system -o yaml
+
