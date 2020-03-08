@@ -1,0 +1,19 @@
+Adding a Grafana Dashboard:
+---------------------------
+import a Grafana Dashboard that will be used to visualize metrics imported from the NodeExporter. Below are the links to the dashboard.
+
+Content Kubernetes Prometheus Env Repository:
+---------------------------------------------
+https://github.com/linuxacademy/content-kubernetes-prometheus-env
+
+
+Kubernetes Nodes Dashboard:
+---------------------------
+https://github.com/linuxacademy/content-kubernetes-prometheus-env/blob/master/grafana/dashboard/Kubernetes%20All%20Nodes.json
+
+
+1. open grafana in your browser
+2. click on "Home" ----> select "Import" ----> click "Upload .json File"  or  Paste Grafana.net dashboard url or id  in "Grafana.net Dashboard" section ----> after uploading 
+   it will open "Import Dashboard" screen ---> go to "Options" Section Name: Kubernetes All nodes ,  Prometheus: Prometheus ----> click on "Save & Open"
+3. yuhhuuu congrats you will get a dashboard!!!!!!!!!!!!!
+

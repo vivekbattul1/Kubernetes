@@ -1,0 +1,80 @@
+Setting Up Grafana:
+===================
+Deploy a Grafana pod and service to Kubernetes.
+
+Create grafana-deployment.yml. This file will be used to create the Grafana deployment. Be sure to change the password.
+grafana-deployment.yml:
+------------------------
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app: grafana
+    component: core
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: grafana
+        component: core
+    spec:
+      containers:
+        - image: grafana/grafana:3.1.1
+          name: grafana
+          env:
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: password
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+          - name: grafana-persistent-storage
+            mountPath: /var
+      volumes:
+      - name: grafana-persistent-storage
+        emptyDir: {}
+
+
+Deploy Grafana:
+---------------
+#kubectl apply -f grafana-deployment.yml
+
+
+Crate grafana-service.yml. This file will be used to make the pod publicly accessible.
+--------------------------------------------------------------------------------------
+grafana-service.yml:
+--------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana-service
+  namespace: monitoring
+
+spec:
+  selector:
+    app: grafana
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 8000
+
+
+Create the Grafana service:
+---------------------------
+#kubectl apply -f grafana-service.yml
+
+open browser paster http://<publicIP>:8000 
+
+Create Data source:
+===================
+click on grafana icon top left ---> Click "Data Sources" ----> click "+ Add Data Source" ----> add data source ---> click on "config" tab ----> Name: Prometheus , Type: Prometheus
+
+under HTTP settings: 
+Url: https://PublicIp;8080  // NOTE: Dont put private IP it will not work
+Access: select "direct"
+
+select "add"
+
