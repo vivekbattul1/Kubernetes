@@ -1,0 +1,75 @@
+2. Configuring an EKS Cluster
+=============================
+Creating an Amazon EKS cluster using the AWS Management Console, and then configuring our command line utilities to connect to the cluster.
+
+Some of the topics we'll be covering in this are:
+-------------------------------------------------
+
+* Creating the EKS service role:
+--------------------------------
+go to IAM ---> Roles ---> create Role ----> AWS service ---> EKS ---> Next permissions ---> Next Tags ---> 
+attache two aws managed policies: 1. AmazonEKSClusterPolicy  2. AmazonEKSService Policy
+---> Next Tags ---> give role name:  ---> Create Role
+
+
+* Creating the VPC infrastructure using CloudFormation:
+-------------------------------------------------------
+go to cloudFormation ---> create stack ---> Teamplate is ready ---> 
+paste Amazon S3 URL: https://amazon-eks.s3-us-west-2.amazonaws.com/cloudformation/2018-11-07/amazon-eks-vpc-sample.yml
+---> next ---> stack name:   ---> next ---> create stack
+
+* Creating a cluster in the AWS Management Console:
+---------------------------------------------------
+go to EKS ---> Cluster name:   ---> Next step ---> kubernetes version ---> Role name ---> VPC ---> select subnets --->
+---> security groups : containing one of the ControlPlane SecurityGroup ---> create
+
+* Configuring kubectl for EKS:
+------------------------------
+mkdir $HOME/bin
+
+curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl 
+
+cp ./kubectl $HOME/bin/kubectl
+
+export PATH=$HOME/bin:&PATH
+
+echo 'export PATH=$HOME/bin:$PATH'  >> ~/.bashrc
+
+kubectl version --client
+
+
+
+* Configuring aws-iam-authenticator:
+------------------------------------
+mkdir #HOME/bin
+
+curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticor
+
+chmod +x ./aws-iam-authenticator
+
+cp ./aws-iam-authenticator $HOME/bin
+
+export PATH=$HOME/bin:$PATH
+
+echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+aws-iam-authenticator help
+
+
+Configure Kubectl for EKS:
+--------------------------
+curl -O https://bootstrap.pypa.io/get-pip.py
+
+python get-pip.py --user
+
+pip install awscli --upgrade --user
+
+export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+
+aws eks update-kubeconfig --name <cluster name>
+
+kubectl config view
+
+kubectl get svc

@@ -1,0 +1,47 @@
+1. EKS Architecture:
+=================
+Amazon Elastic Container Service for Kubernetes, or EKS.
+We're going to be covering a few different concepts including:
+
+What is EKS?
+------------
+* Managed Kubernetes service
+* Runs upstream k*s - not an AWS fork
+* Use Kubectl and friends
+* ECS is cheaper than EKS for small/simple deployments
+* EKS is loosely integrated with other AWS services, buth this is changing rapidly
+* K8s is more popular than ECS or Elastic Beanstalk
+* K8s runs on all major cloud providers, and on-premises
+* ~60% of K8s deployments run on AWS!
+* EKS is secure by default
+
+Managed Control Plane
+---------------------
+* EKS Provides K8s master nodes, API servers, etcd layer
+* 3 Master and 3 etcd nodes by default
+* Backups, etcd snapshots, autoscaling included
+* You provision and manage the EC2 worker nodes
+* Unlike kops, you don't roll your own master
+* Masters and etcd are Multi-AZ
+* EKS scales master nodes for you
+
+Kubernetes & VPC Networking
+AWS CNI Network Plugin
+
+EKS-optimized AMI
+-----------------
+* AWS-supplied AMI based on Amazon Linux 2
+* Preconfigured with Docker, kubelet, AWS IAM Authenticator
+* EC2 User Data bootstrap script
+* Allows automatic joining to EKS cluster
+* Build using Packer
+
+Spot Instances:
+---------------
+* Use AWS's unused capacity at up to 90% discount
+* Less expensive than on-demand by supply and demand
+* Spot price is determined by supply and demand
+* Spot instances can be terminated with little notice
+* Use as EKS worker nodes for a cheap boost in capacity
+* Develop applications to be flexible and fault-tolerant
+* Spot Fleet can help diversify instances
